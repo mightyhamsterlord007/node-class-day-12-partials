@@ -13,7 +13,7 @@
                     <a class="nav-link" href="/users/login">Sign in</a>
                 </li>
               <% } else { %>
-                <a class="btn btn-outline-primary" href="/#">loggedIn as <%= currentUser.name %></a>
+                <a class="btn btn-outline-primary" href="/users/edituser">loggedIn as <%= currentUser.name %></a>
                 <div style="width: 10px"></div>
                 <a class="btn btn-outline-primary" href="/users/signout">Sign out</a>
               <% } %>

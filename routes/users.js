@@ -5,7 +5,12 @@ var userMiddleware = require('../utils/usersMiddleware');
 
 /* GET users listing. */
 router.get('/createuser', function(req, res, next) {
+  console.log(req.session.user)
   res.render('register', { title: 'Sign up', error: '' });
+});
+
+router.get('/edituser', function(req, res, next) {
+  res.send('edit user');
 });
 
 router.post('/createuser', function(req, res, next) {
@@ -25,6 +30,12 @@ router.post('/createuser', function(req, res, next) {
       });
       return;
     }
+
+
+    req.session.user = user._id;
+
+    console.log(req.session)
+
     res.render('index', {
       message: 'Hello ' + user.name + ", you've successfully logged in",
       currentUser: user
@@ -61,5 +72,9 @@ router.post('/login', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Please Log In' });
 });
+
+router.get('/signout', function(req, res, next) {
+  res.render('index', {currentUser: '', message: ''})
+})
 
 module.exports = router;
