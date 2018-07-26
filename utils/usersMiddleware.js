@@ -28,8 +28,7 @@ module.exports = {
         });
     },
     findAuthUser: function(req, res, next) {
-        console.log(req.session)
-        
+
         User.findById(req.session.userID, function(err, user) {
             if (err) {
                 res.json({
@@ -38,10 +37,7 @@ module.exports = {
                 });
                 return;
             }
-            res.json({
-                message: 'success',
-                data: user
-            });
+            res.render('editpage', {currentUser: user})
         });
 
     }
