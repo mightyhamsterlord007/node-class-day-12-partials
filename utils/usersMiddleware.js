@@ -26,5 +26,23 @@ module.exports = {
                    return;
             }
         });
+    },
+    findAuthUser: function(req, res, next) {
+        console.log(req.session)
+        
+        User.findById(req.session.userID, function(err, user) {
+            if (err) {
+                res.json({
+                    message: 'Error',
+                    data: err
+                });
+                return;
+            }
+            res.json({
+                message: 'success',
+                data: user
+            });
+        });
+
     }
 }

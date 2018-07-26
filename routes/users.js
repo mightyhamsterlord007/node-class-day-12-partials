@@ -9,8 +9,9 @@ router.get('/createuser', function(req, res, next) {
   res.render('register', { title: 'Sign up', error: '' });
 });
 
-router.get('/edituser', function(req, res, next) {
-  res.send('edit user');
+router.get('/edituser', userMiddleware.findAuthUser, function(req, res, next) {
+  console.log(req.session.userID)
+  
 });
 
 router.post('/createuser', function(req, res, next) {
@@ -32,9 +33,7 @@ router.post('/createuser', function(req, res, next) {
     }
 
 
-    req.session.user = user._id;
-
-    console.log(req.session)
+    req.session.userID = user._id;
 
     res.render('index', {
       message: 'Hello ' + user.name + ", you've successfully logged in",
@@ -74,6 +73,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/signout', function(req, res, next) {
+  req.session = null;
   res.render('index', {currentUser: '', message: ''})
 })
 
